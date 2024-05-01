@@ -1,0 +1,29 @@
+package lp.vidring.com.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import lp.vidring.com.service.VidringLpService;
+
+@Controller
+public class VidringLpController {
+
+	@Autowired
+	private VidringLpService lpService;
+
+	@GetMapping("/subscribe")
+	public String userLpPage(@RequestParam(name = "operatorId", defaultValue = "0", required = false) String operatorId,
+			@RequestParam(name = "countryCode", defaultValue = "0", required = false) String countryCode,
+			@RequestParam(name = "productId", defaultValue = "0", required = false) String productId,
+			@RequestHeader("User-Agent") String userAgent,
+			@RequestParam(name = "alias", defaultValue = "0", required = false) String alias,
+			@RequestParam(name = "kpId", defaultValue = "0", required = false) String kpId, Model model) {
+		return lpService.getLandingPage(operatorId, countryCode, productId, userAgent, alias, kpId, model);
+	}
+
+}
