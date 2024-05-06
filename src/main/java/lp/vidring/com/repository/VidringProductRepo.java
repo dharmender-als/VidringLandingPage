@@ -14,4 +14,6 @@ public interface VidringProductRepo extends JpaRepository<VidringProductModel, L
 
 	List<VidringProductModel> findByCountryCode(String countryCode);
 
+	List<VidringProductModel> findByCountryCodeAndOperatorId(String countryCode, String operatorId);
+
 }

@@ -39,5 +39,7 @@ public class VidringLpTransactionModel {
 	private String countryCode;
 	@Column
 	private String operatorId;
+	@Column
+	private String transactionId;
 
 }

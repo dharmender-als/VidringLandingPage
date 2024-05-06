@@ -96,11 +96,29 @@
             /* height: 30px; */
             /* width: 100%; */
             text-align: center;
-            align-items: center; 
+            align-items: center;
             border-radius: 5px;
             /* background-color: #cbcbcb; */
             transform: translateY(-50%);
             color: #999;
+        }
+
+        .button-link {
+            background-color: #fa5b7d;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .button-link:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -113,16 +131,22 @@
             </div>
             <h1>Vidring</h1>
             <form method="post" action="/v1/push">
-                <div class="input-container">
+                <!-- <div class="input-container">
                     <span th:text="${countryCode}" class="country-code">+91</span>
                     <input type="number" name="mobile" placeholder="XXXXXXXXX">
-                </div>
+                </div> -->
                 <!-- <input type="number" name="mobile" placeholder="+91 XXXXXXX "> -->
                 <input type="hidden" th:value="${kpId}">
-                <input type="hidden" th:value="${productId}">
+                <!-- <input type="hidden" th:value="${productId}"> -->
                 <input type="hidden" th:value="${countryCode}">
                 <input type="hidden" th:value="${alias}">
-                <input type="submit" value="Subscribe">
+                <div th:each="item : ${productModel}">
+                    <!-- <input type="text" th:value="${item.getPricePoint()}" /> -->
+                    <a th:href="@{'/v1/push?kpId=' + ${kpId} + '&countryCode=' + ${code} + '&alias=' + ${alias} + '&productId=' + ${item.getProductId()} +'&msisdn='+${msisdn}+'&transactionId='+${transactionId} }"
+                        class="button-link"
+                        th:text="${item.getPricePoint() +item.getCurrency()+'/' + item.getPackName()}">Button Text</a>
+                </div>
+                <!-- <input type="submit" value="Subscribe"> -->
                 <!-- <p >th:value="${description}"</p> -->
                 <p th:text="${description}">Description goes here</p>
             </form>
