@@ -19,12 +19,11 @@ public class VidringLpController {
 	@GetMapping("/subscribe")
 	public String userLpPage(@RequestParam(name = "operatorId", defaultValue = "0", required = false) String operatorId,
 			@RequestParam(name = "countryCode", defaultValue = "0", required = false) String countryCode,
-			@RequestParam(name = "productId", defaultValue = "0", required = false) String productId,
 			@RequestHeader("User-Agent") String userAgent,
 			@RequestParam(name = "alias", defaultValue = "0", required = false) String alias,
 			@RequestParam(name = "kpId", defaultValue = "0", required = false) String kpId,
 			@RequestParam(name = "msisdn") String msisdn, Model model) {
-		return lpService.getLandingPage(operatorId, countryCode, productId, userAgent, alias, kpId, model,msisdn);
+		return lpService.getLandingPage(operatorId, countryCode, userAgent, alias, kpId, model, msisdn);
 	}
 
 	@GetMapping("/v1/push")
@@ -33,13 +32,19 @@ public class VidringLpController {
 			@RequestParam(name = "productId", defaultValue = "0", required = false) String productId,
 			@RequestParam(name = "alias", defaultValue = "0", required = false) String alias,
 			@RequestParam(name = "kpId", defaultValue = "0", required = false) String kpId,
+			@RequestParam(name = "operatorId", defaultValue = "0", required = false) String operatorId,
 			@RequestParam(name = "msisdn") String msisdn, Model model) {
-		return lpService.sendPinPushRequest(countryCode, productId, msisdn, alias, kpId, model);
+		return lpService.sendPinPushRequest(countryCode, productId, msisdn, alias, kpId, model, operatorId);
 	}
 
 	@GetMapping("/privacy-policy")
 	public String privacyPage() {
 		return "vidring-privacy.html";
+	}
+
+	@GetMapping("/data-privacy")
+	public String dataPrivay() {
+		return "vidring-data.html";
 	}
 
 }

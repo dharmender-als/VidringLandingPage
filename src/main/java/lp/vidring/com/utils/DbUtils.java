@@ -21,8 +21,7 @@ public class DbUtils {
 	@Autowired
 	VidringProductRepo productRepo;
 
-	public void saveTransaction(String operatorId, String countryCode, String productId, String userAgent, String alias,
-			String kpId, Model model, String msisdn) {
+	public void saveTransaction(String operatorId, String countryCode, String userAgent, String alias, String kpId, Model model, String msisdn) {
 		List<VidringProductModel> productModel = productRepo.findByCountryCodeAndOperatorId(countryCode, operatorId);
 		if (Boolean.TRUE.equals(Objects.nonNull(productModel))) {
 			long transactionId = (long) (Math.random() * 100000000000000L);
@@ -37,9 +36,9 @@ public class DbUtils {
 			lpTransactionModel.setTransactionId(String.valueOf(transactionId));
 //			lpTransactionRepos.save(lpTransactionModel);
 			model.addAttribute("kpId", kpId);
-			model.addAttribute("productId", productId);
 			model.addAttribute("countryCode", "+" + countryCode);
 			model.addAttribute("code", countryCode);
+			model.addAttribute("operatorId", operatorId);
 			model.addAttribute("alias", alias);
 			model.addAttribute("transactionId", transactionId);
 			model.addAttribute("productModel", productModel);

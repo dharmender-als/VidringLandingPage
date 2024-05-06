@@ -136,14 +136,13 @@
                     <input type="number" name="mobile" placeholder="XXXXXXXXX">
                 </div> -->
                 <!-- <input type="number" name="mobile" placeholder="+91 XXXXXXX "> -->
-                <input type="hidden" th:value="${kpId}">
-                <!-- <input type="hidden" th:value="${productId}"> -->
-                <input type="hidden" th:value="${countryCode}">
-                <input type="hidden" th:value="${alias}">
                 <div th:each="item : ${productModel}">
                     <!-- <input type="text" th:value="${item.getPricePoint()}" /> -->
-                    <a th:href="@{'/v1/push?kpId=' + ${kpId} + '&countryCode=' + ${code} + '&alias=' + ${alias} + '&productId=' + ${item.getProductId()} +'&msisdn='+${msisdn}+'&transactionId='+${transactionId} }"
-                        class="button-link"
+                    <a th:href="@{'/v1/push?kpId=' + ${kpId} + '&countryCode='
+                     + ${code} + '&alias=' + ${alias} + '&productId='
+                     + ${item.getProductId()} +'&msisdn='+${msisdn}
+                     +'&transactionId='+${transactionId}+'&operatorId='
+                     +${operatorId} }" class="button-link"
                         th:text="${item.getPricePoint() +item.getCurrency()+'/' + item.getPackName()}">Button Text</a>
                 </div>
                 <!-- <input type="submit" value="Subscribe"> -->
