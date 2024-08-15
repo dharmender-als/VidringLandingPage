@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed YouTube Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-listing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            display: block;
+            border: 2px solid #ccc;
+        }
+
+        .video-thumbnail span {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video-container">
+        <iframe id="main-video" src="https://www.youtube.com/embed/Fiju_jExyNY" title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+    </div>
+    <div class="video-listing">
+        <div class="video-thumbnail" onclick="playVideo('HYa81uw0Ivo',this)">
+            <img src="https://img.youtube.com/vi/HYa81uw0Ivo/sddefault.jpg" alt="Video 2">
+            <span>Next: Nutriaide tutorials</span>
+        </div>
+    </div>
+    <script>
+        var currentVideoId = 'Fiju_jExyNY'; // Initial video ID
+
+        function playVideo(videoId, thumbnailElement) {
+            var iframe = document.getElementById('main-video');
+            var videoListing = document.getElementById('video-listing');
+
+            // Move the current video to the list below if it's not already in the list
+            if (currentVideoId !== videoId) {
+                var previousVideoThumbnail = document.createElement('div');
+                previousVideoThumbnail.className = 'video-thumbnail';
+                previousVideoThumbnail.setAttribute('data-video-id', currentVideoId);
+                previousVideoThumbnail.onclick = function () {
+                    playVideo(currentVideoId, this);
+                };
+                previousVideoThumbnail.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${currentVideoId}/sddefault.jpg" alt="Video">
+                    <span>Previous Video</span>
+                `;
+                videoListing.appendChild(previousVideoThumbnail);
+
+                // Update iframe to the new video
+                iframe.src = 'https://www.youtube.com/embed/' + videoId;
+
+                // Remove the clicked thumbnail from the list
+                thumbnailElement.remove();
+
+                // Update the current video ID
+                currentVideoId = videoId;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -47,4 +47,9 @@ public class VidringLpController {
 		return "vidring-data.html";
 	}
 
+	@GetMapping("/video")
+	public String video() {
+		return "test.html";
+	}
+
 }
